@@ -103,7 +103,8 @@ K12-Dataset/
 ├── demo/            # Trimmed JSON/JSONL samples
 ├── books.yaml       # Book registry
 ├── docs/img/        # README figures
-└── requirements.txt
+├── pyproject.toml  # Direct dependency declarations
+└── uv.lock         # Reproducible dependency lock
 ```
 
 Pipeline flow:
@@ -123,7 +124,7 @@ PDF textbooks ─► MinerU parsing ─► Section split ─► GPT-5.2 schema-c
 ```bash
 git clone https://github.com/haolpku/K12-Dataset.git
 cd K12-Dataset
-pip install -r requirements.txt
+uv sync --frozen
 ```
 
 > If you will run the graph pipeline from PDFs, also install [**MinerU**](https://github.com/opendatalab/MinerU) and make `magic-pdf` callable from the shell (command name configurable via `config/default.yaml`).
@@ -161,6 +162,22 @@ cp eval/configs/.env.example eval/configs/.env
 chmod +x eval/run.sh
 ./eval/run.sh <model-config-stem>          # eval/configs/models/<stem>.yaml
 ```
+
+### Neo4j retrieval for primary mathematics
+
+The repository includes Neo4j 5.26-compatible import, full-text/vector hybrid
+retrieval, parameterized Cypher, guarded Text2Cypher, FastAPI, evaluation tools,
+and Docker Compose deployment.
+
+```bash
+cp config/retrieval.env.example config/retrieval.env
+docker compose --env-file config/retrieval.env \
+  -f docker/docker-compose.neo4j-retrieval.yml up -d --build
+```
+
+See [`docs/neo4j-retrieval.md`](docs/neo4j-retrieval.md) for the complete guide.
+See [`docs/retrieval-final-report.md`](docs/retrieval-final-report.md) for
+implementation and acceptance status.
 
 ---
 

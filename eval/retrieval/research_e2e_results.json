@@ -1,0 +1,491 @@
+{
+  "source": "synthetic_not_sme_reviewed",
+  "total": 60,
+  "passed": 60,
+  "failed": 0,
+  "pass_rate": 1.0,
+  "average_latency_ms": 35.27745,
+  "p95_latency_ms": 63.019,
+  "results": [
+    {
+      "case_id": "multi_001",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 89.299
+    },
+    {
+      "case_id": "location_001",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 166.794
+    },
+    {
+      "case_id": "multi_002",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 31.182
+    },
+    {
+      "case_id": "location_002",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 48.994
+    },
+    {
+      "case_id": "multi_003",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 28.686
+    },
+    {
+      "case_id": "location_003",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 45.342
+    },
+    {
+      "case_id": "multi_004",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 23.788
+    },
+    {
+      "case_id": "location_004",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 50.259
+    },
+    {
+      "case_id": "multi_005",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 24.916
+    },
+    {
+      "case_id": "location_005",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 49.625
+    },
+    {
+      "case_id": "multi_006",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 21.8
+    },
+    {
+      "case_id": "location_006",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 47.704
+    },
+    {
+      "case_id": "multi_007",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 45.964
+    },
+    {
+      "case_id": "location_007",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 49.056
+    },
+    {
+      "case_id": "multi_008",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 23.031
+    },
+    {
+      "case_id": "location_008",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 43.723
+    },
+    {
+      "case_id": "multi_009",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 17.701
+    },
+    {
+      "case_id": "location_009",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 43.324
+    },
+    {
+      "case_id": "multi_010",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 18.168
+    },
+    {
+      "case_id": "location_010",
+      "category": "multi_intent",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 40.895
+    },
+    {
+      "case_id": "no_result_001",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 40.041
+    },
+    {
+      "case_id": "no_result_002",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 40.018
+    },
+    {
+      "case_id": "no_result_003",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 44.608
+    },
+    {
+      "case_id": "no_result_004",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 34.399
+    },
+    {
+      "case_id": "no_result_005",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 32.755
+    },
+    {
+      "case_id": "no_result_006",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 33.314
+    },
+    {
+      "case_id": "no_result_007",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 34.708
+    },
+    {
+      "case_id": "no_result_008",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 41.174
+    },
+    {
+      "case_id": "no_result_009",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 51.617
+    },
+    {
+      "case_id": "no_result_010",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 40.797
+    },
+    {
+      "case_id": "no_result_011",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 38.56
+    },
+    {
+      "case_id": "no_result_012",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 34.275
+    },
+    {
+      "case_id": "no_result_013",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 33.43
+    },
+    {
+      "case_id": "no_result_014",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 36.454
+    },
+    {
+      "case_id": "no_result_015",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 32.336
+    },
+    {
+      "case_id": "no_result_016",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 32.655
+    },
+    {
+      "case_id": "no_result_017",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 32.918
+    },
+    {
+      "case_id": "no_result_018",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 40.907
+    },
+    {
+      "case_id": "no_result_019",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 36.563
+    },
+    {
+      "case_id": "no_result_020",
+      "category": "no_result",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 36.22
+    },
+    {
+      "case_id": "security_001",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 422,
+      "latency_ms": 1.514
+    },
+    {
+      "case_id": "security_002",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 422,
+      "latency_ms": 1.551
+    },
+    {
+      "case_id": "security_003",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 422,
+      "latency_ms": 1.412
+    },
+    {
+      "case_id": "security_004",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 63.019
+    },
+    {
+      "case_id": "security_005",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 54.908
+    },
+    {
+      "case_id": "security_006",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 422,
+      "latency_ms": 1.937
+    },
+    {
+      "case_id": "security_007",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 422,
+      "latency_ms": 1.586
+    },
+    {
+      "case_id": "security_008",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 422,
+      "latency_ms": 1.394
+    },
+    {
+      "case_id": "security_009",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 54.33
+    },
+    {
+      "case_id": "security_010",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 52.695
+    },
+    {
+      "case_id": "security_011",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 422,
+      "latency_ms": 1.51
+    },
+    {
+      "case_id": "security_012",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 422,
+      "latency_ms": 2.241
+    },
+    {
+      "case_id": "security_013",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 422,
+      "latency_ms": 1.546
+    },
+    {
+      "case_id": "security_014",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 53.823
+    },
+    {
+      "case_id": "security_015",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 59.328
+    },
+    {
+      "case_id": "security_016",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 422,
+      "latency_ms": 1.876
+    },
+    {
+      "case_id": "security_017",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 422,
+      "latency_ms": 1.646
+    },
+    {
+      "case_id": "security_018",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 422,
+      "latency_ms": 3.163
+    },
+    {
+      "case_id": "security_019",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 50.663
+    },
+    {
+      "case_id": "security_020",
+      "category": "security",
+      "passed": true,
+      "failures": [],
+      "status": 200,
+      "latency_ms": 48.505
+    }
+  ]
+}

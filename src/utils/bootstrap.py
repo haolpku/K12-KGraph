@@ -12,7 +12,14 @@ from pathlib import Path
 
 def ensure_src_on_path(file: str) -> None:
     """Ensure repo src/ is on sys.path for script-style execution."""
-    src_dir = Path(file).resolve().parents[1]
+    resolved = Path(file).resolve()
+    src_dir = next(
+        (
+            parent / "src"
+            for parent in resolved.parents
+            if (parent / "src" / "utils" / "bootstrap.py").exists()
+        ),
+        resolved.parents[1],
+    )
     if str(src_dir) not in sys.path:
         sys.path.insert(0, str(src_dir))
-

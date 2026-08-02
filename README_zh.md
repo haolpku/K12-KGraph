@@ -100,7 +100,8 @@ K12-Dataset/
 ├── demo/            # 数据格式示例（精简版）
 ├── books.yaml       # 教材注册清单
 ├── docs/img/        # README 图片
-└── requirements.txt
+├── pyproject.toml  # 直接依赖声明
+└── uv.lock         # 可复现依赖锁定
 ```
 
 构建流水线：
@@ -120,7 +121,7 @@ PDF 教材 ─► MinerU 解析 ─► 按节切分 ─► GPT-5.2 schema 约束
 ```bash
 git clone https://github.com/haolpku/K12-Dataset.git
 cd K12-Dataset
-pip install -r requirements.txt
+uv sync --frozen
 ```
 
 > 如果需要从 PDF 启动完整 pipeline，还需安装 [**MinerU**](https://github.com/opendatalab/MinerU)，并确保 `magic-pdf` 命令可调用。
@@ -158,6 +159,21 @@ cp eval/configs/.env.example eval/configs/.env
 chmod +x eval/run.sh
 ./eval/run.sh <模型配置名>                 # eval/configs/models/<模型配置名>.yaml
 ```
+
+### Neo4j 小学数学检索
+
+仓库提供 Neo4j 5.26 兼容的图谱导入、全文/向量混合检索、参数化
+Cypher、受控 Text2Cypher、FastAPI、评测脚本和 Docker Compose。
+
+```bash
+cp config/retrieval.env.example config/retrieval.env
+docker compose --env-file config/retrieval.env \
+  -f docker/docker-compose.neo4j-retrieval.yml up -d --build
+```
+
+完整说明见 [`docs/neo4j-retrieval.md`](docs/neo4j-retrieval.md)。
+当前实现与验收状态见
+[`docs/retrieval-final-report.md`](docs/retrieval-final-report.md)。
 
 ---
 

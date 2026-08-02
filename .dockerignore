@@ -1,0 +1,17 @@
+.git
+.venv
+.omx
+.codex
+.superpowers
+.pytest_cache
+.ruff_cache
+**/__pycache__
+**/*.py[cod]
+**/.DS_Store
+.env
+.env.*
+**/.env
+**/.env.*
+**/*.env
+config/retrieval.env
+eval/retrieval/results/

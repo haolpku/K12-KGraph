@@ -12,6 +12,9 @@
   <a href="https://huggingface.co/datasets/lhpku20010120/K12-KGraph">
     <img alt="Hugging Face 数据集" src="https://img.shields.io/badge/%F0%9F%A4%97%20%E6%95%B0%E6%8D%AE%E9%9B%86-K12--KGraph-ffbd44?style=for-the-badge"/>
   </a>
+  <a href="#-已发布模型">
+    <img alt="Hugging Face 模型" src="https://img.shields.io/badge/%F0%9F%A4%97%20%E6%A8%A1%E5%9E%8B-3%20Checkpoints-8b5cf6?style=for-the-badge"/>
+  </a>
   <a href="https://haolpku.github.io/K12-KGraph-page/">
     <img alt="项目主页" src="https://img.shields.io/badge/%E9%A1%B9%E7%9B%AE-%E4%B8%BB%E9%A1%B5-6b5df5?style=for-the-badge&logo=github-pages&logoColor=white"/>
   </a>
@@ -89,7 +92,7 @@ K12-KGraph 是**首个**开源、多学科、以官方教材为基底、把上�
 ## 🗺️ 仓库结构
 
 ```
-K12-Dataset/
+K12-KGraph/
 ├── src/
 │   ├── kg/          # 知识图谱构建流程
 │   ├── benchmark/   # K12-Bench 题目合成
@@ -118,8 +121,8 @@ PDF 教材 ─► MinerU 解析 ─► 按节切分 ─► GPT-5.2 schema 约束
 ### 1. 安装
 
 ```bash
-git clone https://github.com/haolpku/K12-Dataset.git
-cd K12-Dataset
+git clone https://github.com/haolpku/K12-KGraph.git
+cd K12-KGraph
 pip install -r requirements.txt
 ```
 
@@ -158,6 +161,36 @@ cp eval/configs/.env.example eval/configs/.env
 chmod +x eval/run.sh
 ./eval/run.sh <模型配置名>                 # eval/configs/models/<模型配置名>.yaml
 ```
+
+---
+
+## 🤗 已发布模型
+
+我们在 Hugging Face 发布了 3 个使用 **K12-Train** 训练的独立 checkpoint。每个模型仓库均包含 tokenizer、chat template、配置和完整/已合并权重，无需另行下载基座模型。
+
+| Checkpoint | 参数量 | 微调方式 | 权重大小 | 协议 |
+|---|---:|---|---:|---|
+| [Llama3.1-8B-K12KGraph](https://huggingface.co/lhpku20010120/llama3.1-8b-k12kgraph) | 8B | 全参数 SFT | 16.1 GB | Llama 3.1 |
+| [Qwen3.5-2B-K12KGraph](https://huggingface.co/lhpku20010120/qwen3.5-2b-k12kgraph) | 2B | LoRA SFT，已合并 | 4.4 GB | Apache-2.0 |
+| [Qwen3-4B-K12KGraph](https://huggingface.co/lhpku20010120/qwen3-4b-k12kgraph) | 4B | 全参数 SFT | 8.0 GB | Apache-2.0 |
+
+使用 Hugging Face CLI 下载模型：
+
+```bash
+pip install -U huggingface_hub
+hf download lhpku20010120/qwen3.5-2b-k12kgraph \
+  --local-dir checkpoints/qwen3.5-2b-k12kgraph
+```
+
+也可以直接从 Hub 启动 vLLM，并在 K12-Bench 上评测：
+
+```bash
+# 可将 qwen3_5_2b 替换为 llama3_1_8b 或 qwen3_4b。
+bash eval/vllm_scripts/qwen3_5_2b_k12kgraph.sh
+./eval/run.sh qwen3_5_2b_k12kgraph_vllm
+```
+
+启动脚本支持通过 `VLLM_HOST`、`VLLM_PORT`、`VLLM_TP_SIZE`、`VLLM_MAX_MODEL_LEN`、`VLLM_GPU_MEM` 和 `VLLM_MODEL_ID` 覆盖默认配置。
 
 ---
 
@@ -234,7 +267,7 @@ GitHub Issue 48 小时内响应。
   author       = {Hao Liang and others},
   year         = {2026},
   howpublished = {Submitted to NeurIPS 2026 Evaluations and Datasets Track},
-  url          = {https://github.com/haolpku/K12-Dataset}
+  url          = {https://github.com/haolpku/K12-KGraph}
 }
 ```
 

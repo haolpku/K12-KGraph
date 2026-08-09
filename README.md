@@ -12,6 +12,9 @@
   <a href="https://huggingface.co/datasets/lhpku20010120/K12-KGraph">
     <img alt="Dataset on Hugging Face" src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-K12--KGraph-ffbd44?style=for-the-badge"/>
   </a>
+  <a href="#-released-checkpoints">
+    <img alt="Models on Hugging Face" src="https://img.shields.io/badge/%F0%9F%A4%97%20Models-3%20Checkpoints-8b5cf6?style=for-the-badge"/>
+  </a>
   <a href="https://haolpku.github.io/K12-KGraph-page/">
     <img alt="Project Page" src="https://img.shields.io/badge/Project-Page-6b5df5?style=for-the-badge&logo=github-pages&logoColor=white"/>
   </a>
@@ -92,7 +95,7 @@ Instance-level macro F1 and exact match, in %.
 ## 🗺️ What's in this Repository?
 
 ```
-K12-Dataset/
+K12-KGraph/
 ├── src/
 │   ├── kg/          # Knowledge-graph construction pipeline
 │   ├── benchmark/   # K12-Bench generation from graph queries
@@ -121,8 +124,8 @@ PDF textbooks ─► MinerU parsing ─► Section split ─► GPT-5.2 schema-c
 ### 1. Install
 
 ```bash
-git clone https://github.com/haolpku/K12-Dataset.git
-cd K12-Dataset
+git clone https://github.com/haolpku/K12-KGraph.git
+cd K12-KGraph
 pip install -r requirements.txt
 ```
 
@@ -161,6 +164,36 @@ cp eval/configs/.env.example eval/configs/.env
 chmod +x eval/run.sh
 ./eval/run.sh <model-config-stem>          # eval/configs/models/<stem>.yaml
 ```
+
+---
+
+## 🤗 Released Checkpoints
+
+Three standalone checkpoints trained on **K12-Train** are available on Hugging Face. Each repository contains the tokenizer, chat template, configuration, and merged/full weights; no separate base-model download is required.
+
+| Checkpoint | Parameters | Fine-tuning | Weight size | License |
+|---|---:|---|---:|---|
+| [Llama3.1-8B-K12KGraph](https://huggingface.co/lhpku20010120/llama3.1-8b-k12kgraph) | 8B | Full SFT | 16.1 GB | Llama 3.1 |
+| [Qwen3.5-2B-K12KGraph](https://huggingface.co/lhpku20010120/qwen3.5-2b-k12kgraph) | 2B | LoRA SFT, merged | 4.4 GB | Apache-2.0 |
+| [Qwen3-4B-K12KGraph](https://huggingface.co/lhpku20010120/qwen3-4b-k12kgraph) | 4B | Full SFT | 8.0 GB | Apache-2.0 |
+
+Download a checkpoint with the Hugging Face CLI:
+
+```bash
+pip install -U huggingface_hub
+hf download lhpku20010120/qwen3.5-2b-k12kgraph \
+  --local-dir checkpoints/qwen3.5-2b-k12kgraph
+```
+
+Or serve one directly from the Hub and evaluate it on K12-Bench:
+
+```bash
+# Replace qwen3_5_2b with llama3_1_8b or qwen3_4b as needed.
+bash eval/vllm_scripts/qwen3_5_2b_k12kgraph.sh
+./eval/run.sh qwen3_5_2b_k12kgraph_vllm
+```
+
+The launchers accept the standard `VLLM_HOST`, `VLLM_PORT`, `VLLM_TP_SIZE`, `VLLM_MAX_MODEL_LEN`, `VLLM_GPU_MEM`, and `VLLM_MODEL_ID` overrides.
 
 ---
 
@@ -239,7 +272,7 @@ If you find K12-KGraph useful in your research, please cite:
   author       = {Hao Liang and others},
   year         = {2026},
   howpublished = {Submitted to NeurIPS 2026 Evaluations and Datasets Track},
-  url          = {https://github.com/haolpku/K12-Dataset}
+  url          = {https://github.com/haolpku/K12-KGraph}
 }
 ```
 

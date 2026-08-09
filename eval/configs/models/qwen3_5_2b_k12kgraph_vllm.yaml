@@ -1,0 +1,16 @@
+name: qwen3_5_2b_k12kgraph_vllm_openai
+description: Qwen3.5-2B-K12KGraph 通过 vLLM 的 OpenAI 兼容 API 调用配置
+
+api:
+  base_url: "${VLLM_BASE_URL}"
+  api_key_env: ""
+  model: "qwen3.5-2b-k12kgraph"
+
+request:
+  temperature: 0.0
+  top_p: 1.0
+  max_tokens: 32
+  timeout: 120
+  extra_body:
+    chat_template_kwargs:
+      enable_thinking: false

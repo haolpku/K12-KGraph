@@ -51,6 +51,12 @@
 
 ---
 
+## 🏆 News
+
+- **July 2026** — K12-KGraph, developed by the **PKU-DCAI team**, received **Second Prize** in the **AGI4S Frontier Corpus Track** of the **MinerU Frontier Corpus and Data Intelligence Challenge**. [Award certificate](docs/awards/k12-kgraph-mineru-2026-second-prize.pdf).
+
+---
+
 ## 🌟 Why K12-KGraph?
 
 Modern LLMs can answer "what is the Pythagorean theorem?" but struggle with **curriculum cognition** — the structured understanding of:

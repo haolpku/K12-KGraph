@@ -19,7 +19,7 @@
     <img alt="项目主页" src="https://img.shields.io/badge/%E9%A1%B9%E7%9B%AE-%E4%B8%BB%E9%A1%B5-6b5df5?style=for-the-badge&logo=github-pages&logoColor=white"/>
   </a>
   <a href="#-引用">
-    <img alt="论文" src="https://img.shields.io/badge/%E8%AE%BA%E6%96%87-NeurIPS%202026%20D%26B-1f6feb?style=for-the-badge&logo=readthedocs&logoColor=white"/>
+    <img alt="NeurIPS 2026 Evaluations &amp; Datasets Track 已录用" src="https://img.shields.io/badge/NeurIPS%202026%20E%26D-%E5%B7%B2%E5%BD%95%E7%94%A8-1f6feb?style=for-the-badge&logo=readthedocs&logoColor=white"/>
   </a>
   <a href="LICENSE">
     <img alt="协议" src="https://img.shields.io/badge/%E8%AE%B8%E5%8F%AF%E8%AF%81-CC%20BY--NC--SA%204.0-2ea043?style=for-the-badge&logo=creativecommons&logoColor=white"/>
@@ -52,6 +52,7 @@
 
 ## 🏆 项目动态
 
+- **2026 年 9 月** — K12-KGraph 已被 **NeurIPS 2026 Evaluations &amp; Datasets Track 正式录用**！🎉
 - **2026 年 7 月** — **PKU-DCAI 团队**的 **K12-KGraph** 项目荣获“模塑申城语料普惠计划之 MinerU 前沿语料与数据智能挑战赛” **AGI4S 前沿语料赛道二等奖**。[获奖证书](docs/awards/k12-kgraph-mineru-2026-second-prize.pdf)。
 
 ---
@@ -272,7 +273,8 @@ GitHub Issue 48 小时内响应。
                   Benchmarking and Training Educational LLMs},
   author       = {Hao Liang and others},
   year         = {2026},
-  howpublished = {Submitted to NeurIPS 2026 Evaluations and Datasets Track},
+  howpublished = {NeurIPS 2026 Evaluations and Datasets Track},
+  note         = {Accepted},
   url          = {https://github.com/haolpku/K12-KGraph}
 }
 ```

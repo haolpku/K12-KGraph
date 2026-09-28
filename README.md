@@ -19,7 +19,7 @@
     <img alt="Project Page" src="https://img.shields.io/badge/Project-Page-6b5df5?style=for-the-badge&logo=github-pages&logoColor=white"/>
   </a>
   <a href="#-citation">
-    <img alt="Paper" src="https://img.shields.io/badge/Paper-NeurIPS%202026%20D%26B-1f6feb?style=for-the-badge&logo=readthedocs&logoColor=white"/>
+    <img alt="NeurIPS 2026 Evaluations &amp; Datasets Track — Accepted" src="https://img.shields.io/badge/NeurIPS%202026%20E%26D-Accepted-1f6feb?style=for-the-badge&logo=readthedocs&logoColor=white"/>
   </a>
   <a href="LICENSE">
     <img alt="License" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-2ea043?style=for-the-badge&logo=creativecommons&logoColor=white"/>
@@ -53,6 +53,7 @@
 
 ## 🏆 News
 
+- **September 2026** — K12-KGraph was **accepted to the NeurIPS 2026 Evaluations &amp; Datasets Track**! 🎉
 - **July 2026** — K12-KGraph, developed by the **PKU-DCAI team**, received **Second Prize** in the **AGI4S Frontier Corpus Track** of the **MinerU Frontier Corpus and Data Intelligence Challenge**. [Award certificate](docs/awards/k12-kgraph-mineru-2026-second-prize.pdf).
 
 ---
@@ -277,7 +278,8 @@ If you find K12-KGraph useful in your research, please cite:
                   Benchmarking and Training Educational LLMs},
   author       = {Hao Liang and others},
   year         = {2026},
-  howpublished = {Submitted to NeurIPS 2026 Evaluations and Datasets Track},
+  howpublished = {NeurIPS 2026 Evaluations and Datasets Track},
+  note         = {Accepted},
   url          = {https://github.com/haolpku/K12-KGraph}
 }
 ```

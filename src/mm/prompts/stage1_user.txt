@@ -1,0 +1,26 @@
+请分析这一张教材图片。
+
+节信息：
+
+{section_metadata}
+
+整节教材原文：
+
+{section_text}
+
+图片结构信息：
+
+{figure_hint}
+
+请输出 JSON：
+
+```json
+{{
+  "figure_id": "{figure_id}",
+  "name": "中文图名",
+  "textual_evidence": "教材原文中的直接相关文字；可以包含多段逐字原文拼接，但不能改写；没有则为空字符串",
+  "description": "只基于图片可见内容的中文描述",
+  "is_kg_relevant": "yes 或 no",
+  "irrelevant_reason": "若 is_kg_relevant=no，则给出简短中文原因；否则为空字符串"
+}}
+```

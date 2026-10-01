@@ -1,0 +1,73 @@
+请为这一张教材图定位已有 visual elements，并抽取可挂接到现有知识图谱的增量关系。
+
+节信息：
+
+{section_metadata}
+
+整节教材原文：
+
+{section_text}
+
+图片信息：
+
+{figure_info}
+
+给定的 visual elements：
+
+{visual_elements_json}
+
+候选节点：
+
+{candidate_nodes}
+
+候选边：
+
+{candidate_edges}
+
+从书级 exercise.json 映射到本节的候选练习：
+
+{exercise_catalog}
+
+请输出 JSON：
+
+```json
+{{
+  "figure_id": "{figure_id}",
+  "illustrates": [
+    {{
+      "target_id": "existing node id",
+      "rationale": "中文说明图中什么可见内容支持该关系",
+      "confidence": 0.0
+    }}
+  ],
+  "visual_elements": [
+    {{
+      "ve_id": "已有 ve_id",
+      "bbox_2d": [0, 0, 1000, 1000],
+      "confidence": 0.0,
+      "rationale": "中文简述为什么这个框对应该 visual element",
+      "refers_to": [
+        {{
+          "target_id": "existing node id",
+          "rationale": "中文说明该局部元素如何直接对应候选节点",
+          "confidence": 0.0
+        }}
+      ]
+    }}
+  ],
+  "supports_edges": [
+    {{
+      "edge_ref": "candidate edge ref",
+      "rationale": "中文说明图片如何直接作为该候选边的视觉证据",
+      "confidence": 0.0
+    }}
+  ],
+  "required_by_exercises": [
+    {{
+      "exercise_id": "existing exercise node id",
+      "rationale": "中文说明为什么没有这张图就无法理解或作答该练习",
+      "confidence": 0.0
+    }}
+  ]
+}}
+```

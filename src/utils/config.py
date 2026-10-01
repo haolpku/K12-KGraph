@@ -229,6 +229,74 @@ class PipelineConfig:
     def generated_book_manifest_for(self, book_prefix: str) -> Path:
         return self.pdf_to_md_book_dir(book_prefix) / "manifest.json"
 
+    # ---- multimodal paths ---------------------------------------------------
+
+    @property
+    def mm_workspace_dir(self) -> Path:
+        """Intermediate artifacts of the multimodal pipeline (alignment, partials)."""
+        return self.workspace_dir / "mm"
+
+    def mm_book_dir(self, book_prefix: str) -> Path:
+        return self.mm_workspace_dir / book_prefix
+
+    def aligned_figures_for(self, book_prefix: str) -> Path:
+        """Section markdown aligned with the figures of each section."""
+        return self.mm_book_dir(book_prefix) / "aligned_sections.json"
+
+    def mm_partials_dir_for(self, book_prefix: str) -> Path:
+        return self.mm_book_dir(book_prefix) / "partials"
+
+    @property
+    def mmkg_dir(self) -> Path:
+        """One complete graph per book: text nodes plus figure nodes."""
+        return self.output_dir / "mmkg"
+
+    def mmkg_book_graph_for(self, book_prefix: str) -> Path:
+        return self.mmkg_dir / f"{book_prefix}.json"
+
+    @property
+    def vqa_dir(self) -> Path:
+        """Multimodal QA data derived from the per-book graphs."""
+        return self.mmkg_dir / "vqa"
+
+    @property
+    def sft_vqa_root(self) -> Path:
+        return self.vqa_dir / "sft_vqa"
+
+    def sft_vqa_dir(self, book_prefix: str) -> Path:
+        return self.sft_vqa_root / book_prefix
+
+    @property
+    def vqa_assets_dir(self) -> Path:
+        return self.vqa_dir / "assets"
+
+    @property
+    def vqa_alpaca_dir(self) -> Path:
+        return self.vqa_dir / "alpaca"
+
+    def hybrid_dir_for(self, book_prefix: str) -> Optional[Path]:
+        """Directory holding the MinerU markdown together with its ``images/`` folder."""
+        mineru_root = self.pdf_to_md_book_dir(book_prefix) / "mineru_output"
+        if mineru_root.is_dir():
+            candidates = [
+                path
+                for path in mineru_root.rglob("hybrid_auto")
+                if path.is_dir() and any(path.glob("*.md")) and (path / "images").is_dir()
+            ]
+            if candidates:
+                candidates.sort(key=lambda path: (len(path.parts), str(path)))
+                return candidates[0].resolve()
+
+        book = next(
+            (item for item in self.load_books(require_source=False) if item["book_prefix"] == book_prefix),
+            None,
+        )
+        if book is not None:
+            markdown = self.resolve_book_markdown(book)
+            if markdown is not None and (markdown.parent / "images").is_dir():
+                return markdown.parent.resolve()
+        return None
+
 
 def load_config(config_path: Optional[str] = None) -> PipelineConfig:
     """Load a :class:`PipelineConfig` from a YAML file.

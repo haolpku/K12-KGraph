@@ -1,0 +1,24 @@
+你的任务是根据知识图谱中的【图片-关系边支持关系】，合成 {n} 条高质量的 SFT 训练数据（问题-答案对）。
+
+# 输入数据
+
+- figure: {figure_name}
+- figure_description: {figure_description}
+- edge_type: {supported_edge_type}
+- edge_source: {source_name}
+- edge_target: {target_name}
+- rationale: {rationale}
+
+# 生成策略
+
+- 问题应**严格围绕图片如何支持 source 和 target 之间的关系**来设计。
+- 可针对“这张图怎样说明 {source_name} 和 {target_name} 的关系”“图中哪些信息能支持这条关系”“为什么这张图可以作为这条关系的视觉证据”等来设计。
+- 答案应**严格依据给定信息**，说明图片中的视觉信息如何支持原有关系边。
+- 答案结构尽量遵循如下格式：【{source_name} 与 {target_name} 的关系是什么】，而【图中呈现的视觉信息】，【图中的视觉信息是如何支撑该关系的】，所以【这张图可以支持 {source_name} 和 {target_name} 之间的 {supported_edge_type} 关系】。
+- 一个“问题-答案对”只包含**一个问题**。
+
+# 风格要求
+
+- 回答应重点突出，**简洁明了**。
+- 语言应**严谨、正式但不严肃**，适合 K12 学生理解。
+

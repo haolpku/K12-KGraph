@@ -1,0 +1,36 @@
+请分析这一张教材图片的主要教学 figure_role，并识别图中的 visual elements。
+
+节信息：
+
+{section_metadata}
+
+整节教材原文：
+
+{section_text}
+
+图片信息：
+
+{figure_info}
+
+figure_role 候选值：
+{role_choices}
+
+figure_role 判定说明：
+{role_hints}
+
+请输出 JSON：
+
+```json
+{{
+  "figure_id": "{figure_id}",
+  "figure_role": "从候选值中选一个",
+  "figure_role_rationale": "中文简述为什么这张图最适合这个 figure_role",
+  "visual_elements": [
+    {{
+      "name": "中文元素名",
+      "description": "中文描述该局部元素的可见内容",
+      "text_on_image": "若该局部元素上有可读文字则填写，否则为空字符串"
+    }}
+  ]
+}}
+```

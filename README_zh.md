@@ -102,6 +102,8 @@ K12-KGraph 是**首个**开源、多学科、以官方教材为基底、把上�
 K12-KGraph/
 ├── src/
 │   ├── kg/          # 知识图谱构建流程
+│   ├── mm/          # 多模态图谱：图、视觉元素、图片关系
+│   ├── qa/          # 训练数据合成（文本 SFT + 多模态 VQA）
 │   ├── benchmark/   # K12-Bench 题目合成
 │   ├── sft_qa/      # K12-Train QA 合成（节点 / 关系 grounded）
 │   └── utils/       # 共享配置 / LLM client / IO
@@ -110,6 +112,7 @@ K12-KGraph/
 ├── demo/            # 数据格式示例（精简版）
 ├── books.yaml       # 教材注册清单
 ├── docs/img/        # README 图片
+├── run_pipeline.py  # 统一入口（kg / mm / qa）
 └── requirements.txt
 ```
 
@@ -119,7 +122,32 @@ K12-KGraph/
 PDF 教材 ─► MinerU 解析 ─► 按节切分 ─► GPT-5.2 schema 约束抽取
          ─► 分层合并（书 → 学科 → 全局）─► DAG 校验 + 专家复核
          ─► K12-KGraph ─► K12-Bench（图查询）+ K12-Train（QA 合成）
+             │
+             └─► 图片对齐 ─► 视觉抽取 ─► 图片节点与关系写回书级图
+                 ─► K12-Train-MM（图片问答）
 ```
+
+---
+
+## 🖼 多模态部分
+
+同一套教材还可以产出一张"带图"的图谱：每张图是一个 `Figure` 节点，图里的局部元素是
+`VisualElement` 节点（带归一化到 0–1000 的 `bbox_2d`），再用 `illustrates` ·
+`refers_to` · `supports_edge` · `requires_figure` 四种关系挂到文本侧的知识点上，
+最后把关系变成图片问答数据（见 [`docs/multimodal.md`](docs/multimodal.md)）。
+
+```bash
+# 先跑文本侧（分节 + 文本图谱）
+python run_pipeline.py kg --filter-prefix math_7a_rjb
+
+# 图片 → 节点与关系（需要 OPENAI_API_KEY 和一个视觉模型）
+python run_pipeline.py mm --filter-prefix math_7a_rjb
+
+# 图片问答 → LLaMA-Factory 格式
+python run_pipeline.py qa --filter-prefix math_7a_rjb
+```
+
+也可以一条命令跑完：`python run_pipeline.py all --filter-prefix <book>`。
 
 ---
 

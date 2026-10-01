@@ -105,6 +105,8 @@ Instance-level macro F1 and exact match, in %.
 K12-KGraph/
 ├── src/
 │   ├── kg/          # Knowledge-graph construction pipeline
+│   ├── mm/          # Multimodal graphs: Figures, visual elements, figure relations
+│   ├── qa/          # Training-data synthesis (text SFT + multimodal VQA)
 │   ├── benchmark/   # K12-Bench generation from graph queries
 │   ├── sft_qa/      # K12-Train synthesis (node & edge grounded)
 │   └── utils/       # Shared config / LLM client / IO
@@ -113,6 +115,7 @@ K12-KGraph/
 ├── demo/            # Trimmed JSON/JSONL samples
 ├── books.yaml       # Book registry
 ├── docs/img/        # README figures
+├── run_pipeline.py  # One entry point for every stage (kg / mm / qa)
 └── requirements.txt
 ```
 
@@ -122,7 +125,33 @@ Pipeline flow:
 PDF textbooks ─► MinerU parsing ─► Section split ─► GPT-5.2 schema-constrained extraction
                ─► Hierarchical merge (book → subject → global) ─► DAG validation + expert review
                ─► K12-KGraph ─► K12-Bench (queries) + K12-Train (QA synthesis)
+                   │
+                   └─► figure alignment ─► vision extraction ─► figures on the book graph
+                       ─► K12-Train-MM (VQA)
 ```
+
+---
+
+## 🖼 Multimodal extension
+
+The same textbooks also yield a figure-grounded graph: every figure becomes a `Figure`
+node, its sub-regions become `VisualElement` nodes with normalised bounding boxes, and
+they are linked to the text-side knowledge points with `illustrates` · `refers_to` ·
+`supports_edge` · `requires_figure` edges. Those edges are then turned into image
+questions ([`docs/multimodal.md`](docs/multimodal.md)).
+
+```bash
+# text side first (sections + text graph)
+python run_pipeline.py kg --filter-prefix math_7a_rjb
+
+# figures -> nodes and relations (needs OPENAI_API_KEY and a vision model)
+python run_pipeline.py mm --filter-prefix math_7a_rjb
+
+# image questions -> LLaMA-Factory format
+python run_pipeline.py qa --filter-prefix math_7a_rjb
+```
+
+Or the whole chain at once: `python run_pipeline.py all --filter-prefix <book>`.
 
 ---
 

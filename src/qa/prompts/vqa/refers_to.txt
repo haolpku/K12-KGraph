@@ -1,0 +1,22 @@
+你的任务是根据知识图谱中的【视觉元素-知识节点对应关系】，合成 {n} 条高质量的 SFT 训练数据（问题-答案对）。
+
+# 输入数据
+
+- visual_element: {visual_element_name}
+- visual_element_description: {visual_element_description}
+- target: {target_name}
+- target_type: {target_type}
+- rationale: {rationale}
+
+# 生成策略
+
+- 问题应**严格围绕图中 visual_element**，针对“这个局部元素对应哪个概念 / 技能 / 实验”“为什么它对应 {target_name}”“它在理解 {target_name} 时有什么作用”等来设计。
+- 答案应**严格依据给定信息**，说明局部视觉元素与 {target_name} 的对应关系。
+- 答案结构尽量遵循如下格式：因为【图中 visual_element 的视觉特征】呈现了【{target_name} 的定义 / 特征 / 结构 / 方法 / 步骤 / 过程 / 现象】，所以【该视觉元素对应 {target_name}】。
+- 一个“问题-答案对”只包含**一个问题**。
+
+# 风格要求
+
+- 回答应重点突出，**简洁明了**。
+- 语言应**严谨、正式但不严肃**，适合 K12 学生理解。
+

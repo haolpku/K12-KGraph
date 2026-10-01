@@ -2,10 +2,20 @@
 
 from __future__ import annotations
 
+import base64
 import json
+import mimetypes
 import re
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Sequence
+
+
+def image_to_data_url(path: Path) -> str:
+    """Encode a local image as a ``data:`` URL for multimodal chat requests."""
+    mime, _ = mimetypes.guess_type(path.name)
+    data = base64.b64encode(path.read_bytes()).decode("ascii")
+    return f"data:{mime or 'image/jpeg'};base64,{data}"
 
 
 class LLMClient(ABC):
@@ -15,6 +25,16 @@ class LLMClient(ABC):
 
     @abstractmethod
     def parse_response(self, response: str) -> Dict[str, Any]:
+        raise NotImplementedError
+
+    def generate_with_images(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        image_paths: Sequence[Path],
+        **kwargs: Any,
+    ) -> str:
+        """Generate from a system prompt, a user prompt and zero or more images."""
         raise NotImplementedError
 
 
@@ -33,6 +53,14 @@ class OpenAIClient(LLMClient):
         self.model = model
         self.client = OpenAI(api_key=api_key, base_url=base_url.rstrip("/") if base_url else None)
 
+    @staticmethod
+    def _check_content(content: str) -> str:
+        if not isinstance(content, str):
+            raise ValueError("LLM returned empty content")
+        if content.strip().startswith("<!") or "<html" in content.lower():
+            raise ValueError("LLM API returned HTML instead of model output; please check base_url")
+        return content
+
     def generate(
         self,
         prompt: str,
@@ -41,19 +69,88 @@ class OpenAIClient(LLMClient):
         max_tokens: int = 4000,
         **kwargs: Any,
     ) -> str:
-        response = self.client.chat.completions.create(
-            model=self.model,
-            messages=[{"role": "user", "content": prompt}],
+        return self._chat(
+            [{"role": "user", "content": prompt}],
             temperature=temperature,
             max_tokens=max_tokens,
+            json_mode=False,
             **kwargs,
         )
+
+    def _chat(
+        self,
+        messages: List[Dict[str, Any]],
+        *,
+        temperature: float,
+        max_tokens: int,
+        json_mode: bool,
+        **kwargs: Any,
+    ) -> str:
+        request: Dict[str, Any] = {
+            "model": self.model,
+            "messages": messages,
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+            **kwargs,
+        }
+        if json_mode:
+            request["response_format"] = {"type": "json_object"}
+        response = self.client.chat.completions.create(**request)
         content = response.choices[0].message.content if response.choices else ""
-        if not isinstance(content, str):
-            raise ValueError("LLM returned empty content")
-        if content.strip().startswith("<!") or "<html" in content.lower():
-            raise ValueError("LLM API returned HTML instead of model output; please check base_url")
-        return content
+        return self._check_content(content)
+
+    def generate_chat(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        *,
+        temperature: float = 0.0,
+        max_tokens: int = 4000,
+        json_mode: bool = False,
+        **kwargs: Any,
+    ) -> str:
+        """Text-only request with separate system and user messages."""
+        return self._chat(
+            [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            temperature=temperature,
+            max_tokens=max_tokens,
+            json_mode=json_mode,
+            **kwargs,
+        )
+
+    def generate_with_images(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        image_paths: Sequence[Path],
+        *,
+        temperature: float = 0.0,
+        max_tokens: int = 4000,
+        json_mode: bool = False,
+        **kwargs: Any,
+    ) -> str:
+        """Send a multimodal chat request.
+
+        Used by the figure extraction stage (``src/mm``): the model receives the
+        textbook text plus the figure image(s), and answers with JSON.
+        """
+        content: List[Dict[str, Any]] = [{"type": "text", "text": user_prompt}]
+        for path in image_paths:
+            content.append({"type": "image_url", "image_url": {"url": image_to_data_url(Path(path))}})
+
+        return self._chat(
+            [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": content},
+            ],
+            temperature=temperature,
+            max_tokens=max_tokens,
+            json_mode=json_mode,
+            **kwargs,
+        )
 
     def parse_response(self, response: str) -> Dict[str, Any]:
         json_text = response

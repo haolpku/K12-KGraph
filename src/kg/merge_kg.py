@@ -13,11 +13,12 @@ from collections import defaultdict
 from copy import deepcopy
 from pathlib import Path
 import re
+import sys
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
-from utils.bootstrap import ensure_src_on_path
-
-ensure_src_on_path(__file__)
+_SRC_DIR = Path(__file__).resolve().parents[1]
+if str(_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(_SRC_DIR))
 
 from utils.config import PipelineConfig, load_config
 from utils.k12_ids import BOOK_CODE_ORDER_INDEX, BOOK_PREFIX_RE

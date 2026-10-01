@@ -12,6 +12,7 @@ import argparse
 import hashlib
 import json
 import re
+import sys
 from collections import defaultdict, deque
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -20,9 +21,9 @@ from typing import Any, DefaultDict, Dict, Iterable, List, Optional, Sequence, S
 import numpy as np
 from fastembed import TextEmbedding
 
-from utils.bootstrap import ensure_src_on_path
-
-ensure_src_on_path(__file__)
+_SRC_DIR = Path(__file__).resolve().parents[1]
+if str(_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(_SRC_DIR))
 
 from utils.io import read_json, write_json, write_jsonl  # noqa: E402
 from utils.k12_ids import (

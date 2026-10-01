@@ -10,13 +10,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Set, Tuple
 
-from utils.bootstrap import ensure_src_on_path
-
-ensure_src_on_path(__file__)
+_SRC_DIR = Path(__file__).resolve().parents[1]
+if str(_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(_SRC_DIR))
 
 from utils.config import load_config
 from utils.io import read_json, write_json

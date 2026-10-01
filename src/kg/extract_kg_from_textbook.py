@@ -12,13 +12,14 @@ import argparse
 import json
 import re
 import shutil
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
-from utils.bootstrap import ensure_src_on_path
-
-ensure_src_on_path(__file__)
+_SRC_DIR = Path(__file__).resolve().parents[1]
+if str(_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(_SRC_DIR))
 
 from utils.config import PipelineConfig, load_config
 from utils.io import read_json, write_json

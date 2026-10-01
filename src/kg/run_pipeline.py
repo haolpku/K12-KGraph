@@ -9,12 +9,13 @@ filter/limit flags across steps for reproducible batch runs.
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 from typing import Optional, Sequence
 
-from utils.bootstrap import ensure_src_on_path
-
-ensure_src_on_path(__file__)
+_SRC_DIR = Path(__file__).resolve().parents[1]
+if str(_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(_SRC_DIR))
 
 from kg.build_afterclass_exercises import process_all as afterclass_process_all
 from kg.check_cycles import run_checks

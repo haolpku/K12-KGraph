@@ -10,13 +10,14 @@ from __future__ import annotations
 import argparse
 import hashlib
 import random
+import sys
 from collections import Counter
 from pathlib import Path
 from typing import Dict, Iterable, List, Tuple
 
-from utils.bootstrap import ensure_src_on_path
-
-ensure_src_on_path(__file__)
+_SRC_DIR = Path(__file__).resolve().parents[1]
+if str(_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(_SRC_DIR))
 
 from utils.io import read_jsonl, write_jsonl  # noqa: E402
 

@@ -7,13 +7,34 @@ utilities to keep serialization consistent.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Union
 
 
+_JSON_BLOCK_RE = re.compile(r"```(?:json)?\s*(.*?)```", re.DOTALL)
+
+
+def parse_json_block(text: str) -> Any:
+    """Parse a model response, tolerating a ```json fence or surrounding prose.
+
+    Used wherever a prompt asks a model for JSON: the answer may arrive as raw
+    JSON, inside a fenced block, or with a sentence in front of it.
+    """
+    candidate = (text or "").strip()
+    match = _JSON_BLOCK_RE.search(candidate)
+    if match:
+        candidate = match.group(1).strip()
+    else:
+        start, end = candidate.find("{"), candidate.rfind("}")
+        if start != -1 and end > start:
+            candidate = candidate[start : end + 1]
+    return json.loads(candidate)
+
+
 def read_json(path: Union[str, Path]) -> Any:
-    """Read a JSON file and return the parsed object."""
-    with open(path, "r", encoding="utf-8") as f:
+    """Read a JSON file and return the parsed object (tolerates a UTF-8 BOM)."""
+    with open(path, "r", encoding="utf-8-sig") as f:
         return json.load(f)
 
 

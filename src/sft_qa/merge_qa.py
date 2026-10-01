@@ -8,12 +8,13 @@ Reads ``workspace/sft_qa/<subject_stage>/parts`` and writes consolidated JSONL u
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 from typing import Dict, List
 
-from utils.bootstrap import ensure_src_on_path
-
-ensure_src_on_path(__file__)
+_SRC_DIR = Path(__file__).resolve().parents[1]
+if str(_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(_SRC_DIR))
 
 from sft_qa.common import load_openai_env, resolve_workspace_root  # noqa: E402
 from utils.config import load_config  # noqa: E402

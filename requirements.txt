@@ -2,3 +2,4 @@ openai>=1.0.0
 pyyaml
 numpy
 fastembed
+Pillow>=10.0.0
